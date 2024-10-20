@@ -1,0 +1,43 @@
+service: doge-meme-generator # Your service name
+
+provider:
+  name: aws                   # The cloud provider (AWS in this case)
+  runtime: nodejs18.x          # The runtime for Lambda functions
+  region: us-east-1            # The region where the functions will be deployed
+
+functions:
+  create:
+    handler: handler.create
+    events:
+      - http:
+          path: create
+          method: post
+
+  read:
+    handler: handler.read
+    events:
+      - http:
+          path: read
+          method: get
+
+  update:
+    handler: handler.update
+    events:
+      - http:
+          path: update
+          method: put
+
+  delete:
+    handler: handler.delete
+    events:
+      - http:
+          path: delete
+          method: delete
+
+# You can also add resources like S3 bucket here if needed
+resources:
+  Resources:
+    MemeBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: doge-meme-bucket2
